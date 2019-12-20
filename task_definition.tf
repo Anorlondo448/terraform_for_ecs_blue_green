@@ -22,12 +22,25 @@ resource "aws_ecs_task_definition" "task" {
 }
 
 data "template_file" "task_definitions" {
-  template = file("task-definitions/service.json")
-
-  vars = {
-    aws_id          = data.aws_caller_identity.current.account_id
-    container_name  = var.app-name
-    repository_name = aws_ecr_repository.repository.name
-  }
+  template = <<EOF
+[
+    {
+      "environment": [],
+      "name": "app",
+      "image": "${aws_ecr_repository.repository.repository_url}:latest",
+      "cpu": 128,
+      "portMappings": [
+        {
+            "containerPort": 80,
+            "hostPort": 80
+        }
+      ],
+      "memory": 256,
+      "command": [
+      ],
+      "essential": true
+    }
+  ]
+  EOF
 }
 
