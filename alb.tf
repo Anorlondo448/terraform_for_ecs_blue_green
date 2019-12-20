@@ -6,8 +6,8 @@ resource "aws_lb" "alb" {
   name               = var.app-name
   internal           = false
   load_balancer_type = "application"
-  subnets         = [aws_subnet.public-1a.id, aws_subnet.public-1c.id, aws_subnet.public-1d.id]
-  security_groups = [aws_security_group.alb.id]
+  subnets            = [aws_subnet.public-1a.id, aws_subnet.public-1c.id, aws_subnet.public-1d.id]
+  security_groups    = [aws_security_group.alb.id]
 
   enable_deletion_protection = false
 
@@ -35,7 +35,7 @@ resource "aws_lb_listener_rule" "alb" {
   listener_arn = aws_lb_listener.alb.arn
 
   action {
-    type             = "forward"
+    type = "forward"
     # CodeDeployによるBlue/Greenで変更されるが、初期値はBlueとしておく
     target_group_arn = aws_lb_target_group.target_blue.arn
   }
@@ -52,10 +52,10 @@ resource "aws_lb_listener_rule" "alb" {
 # Target Group for Listener
 #
 resource "aws_lb_target_group" "target_blue" {
-  name     = "${var.app-name}-target-blue"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = aws_vpc.vpc.id
+  name        = "${var.app-name}-target-blue"
+  port        = 80
+  protocol    = "HTTP"
+  vpc_id      = aws_vpc.vpc.id
   target_type = "ip"
 
   # コンテナへの死活監視設定
@@ -66,10 +66,10 @@ resource "aws_lb_target_group" "target_blue" {
 }
 
 resource "aws_lb_target_group" "target_green" {
-  name     = "${var.app-name}-target-green"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = aws_vpc.vpc.id
+  name        = "${var.app-name}-target-green"
+  port        = 80
+  protocol    = "HTTP"
+  vpc_id      = aws_vpc.vpc.id
   target_type = "ip"
 
   # コンテナへの死活監視設定

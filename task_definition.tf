@@ -7,8 +7,8 @@ data "aws_ecs_task_definition" "task" {
 }
 
 resource "aws_ecs_task_definition" "task" {
-  family = var.app-name
-  container_definitions    = data.template_file.task_definitions.rendered
+  family                = var.app-name
+  container_definitions = data.template_file.task_definitions.rendered
   # タスクが他AWSリソースへのアクセスが必要な場合にRoleを作成・付与する
   # task_role_arn            = aws_iam_role.task_role
   execution_role_arn       = aws_iam_role.task_execution_role.arn

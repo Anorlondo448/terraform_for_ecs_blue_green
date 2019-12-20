@@ -3,10 +3,10 @@
 # IAM Role for CodeDeploy for ECS
 #
 resource "aws_iam_role" "codedeploy_role" {
-  name = "${var.app-name}-codedeploy-role"
-  path = "/"
+  name               = "${var.app-name}-codedeploy-role"
+  path               = "/"
   assume_role_policy = data.aws_iam_policy_document.assume_role_codedeploy.json
-  description = "Allows CodeDeploy to call AWS services on your behalf."
+  description        = "Allows CodeDeploy to call AWS services on your behalf."
 
   tags = {
     Name = var.app-name
@@ -19,7 +19,7 @@ resource "aws_iam_role" "codedeploy_role" {
 #
 data "aws_iam_policy_document" "assume_role_codedeploy" {
   statement {
-    effect = "Allow"
+    effect  = "Allow"
     actions = ["sts:AssumeRole"]
 
     principals {
@@ -37,6 +37,6 @@ data "aws_iam_policy_document" "assume_role_codedeploy" {
 # Attach policy for Task Role
 #
 resource "aws_iam_role_policy_attachment" "codedeploy_role" {
-  role = aws_iam_role.codedeploy_role.name
+  role       = aws_iam_role.codedeploy_role.name
   policy_arn = "arn:aws:iam::aws:policy/AWSCodeDeployRoleForECS"
 }
