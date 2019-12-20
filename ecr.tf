@@ -2,7 +2,7 @@
 #
 # ECR
 #
-resource "aws_ecr_repository" "repository" {
+resource "aws_ecr_repository" "app" {
   name                 = var.app-name
   image_tag_mutability = "MUTABLE"
 
