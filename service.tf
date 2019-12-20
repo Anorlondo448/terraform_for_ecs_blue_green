@@ -30,6 +30,6 @@ resource "aws_ecs_service" "service" {
   network_configuration {
     subnets         = [aws_subnet.public-1a.id, aws_subnet.public-1c.id, aws_subnet.public-1d.id]
     security_groups = [aws_security_group.ecs_service.id]
-    assign_public_ip = false
+    assign_public_ip = true
   }
 }
