@@ -26,8 +26,8 @@ data "template_file" "task_definitions" {
 [
     {
       "environment": [],
-      "name": "app",
-      "image": "${aws_ecr_repository.repository.repository_url}:latest",
+      "name": "${var.app-name}",
+      "image": "${aws_ecr_repository.app.repository_url}:latest",
       "cpu": 128,
       "portMappings": [
         {
