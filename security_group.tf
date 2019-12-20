@@ -3,12 +3,12 @@
 # Security Group
 #
 
-resource "aws_security_group" "allow_http_from_any" {
-  name        = "${var.app-name}-allow-http-from-any"
+resource "aws_security_group" "alb" {
+  name        = "${var.app-name}-alb"
   description = "Allow HTTP from Any"
   vpc_id      = aws_vpc.vpc.id
   tags = {
-    Name = "${var.app-name}-allow-http-from-any"
+    Name = "${var.app-name}-alb"
   }
 
   ingress {
